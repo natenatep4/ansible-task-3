@@ -1,0 +1,12 @@
+- hosts: centos1
+  tasks:
+  - debug:
+      msg: "{{ hostvars[ item ].ansible_host }} - {{ item }}"
+    with_items: "{{ hostvars }}"
+
+  - name: Update /etc/hosts file
+    lineinfile:
+      path: /etc/hosts
+      line: "{{  hostvars[ item ].ansible_host }} {{ item }}"
+      create: yes
+    with_items: "{{ hostvars }}"
